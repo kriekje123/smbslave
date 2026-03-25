@@ -6,12 +6,30 @@
 #define MOTOR_EN 5
 #define MOTOR_IN1 6
 #define MOTOR_IN2 7
+#define MOTOR_PWM_PIN 8
+
+static void setMotorPWM(uint8_t pwm)
+{
+    analogWrite(MOTOR_PWM_PIN, pwm);
+}
+
+static void setMotorDirection(uint8_t direction)
+{
+    //Richting instellen
+    if(direction == 0){
+        digitalWrite(MOTOR_IN1, HIGH);
+    }
+    else if(direction == 1){
+        digitalWrite(MOTOR_IN2, LOW);
+    }
+}
 
 void motorInit()
 {
   pinMode(MOTOR_EN, OUTPUT);
   pinMode(MOTOR_IN1, OUTPUT);
   pinMode(MOTOR_IN2, OUTPUT);
+  pinMode(MOTOR_PWM_PIN, OUTPUT);
 
     smb.writeByteRegister(REG_SPEED, 0);
     smb.writeByteRegister(REG_DIRECTION, 0);
@@ -28,20 +46,4 @@ void motorUpdate()
 
     setMotorDirection(direction);
     setMotorPWM(speed);
-}
-
-void setMotorPWM(uint8_t pwm)
-{
-    //Snelheid initialiseren
-}
-
-void setMotorDirection(uint8_t direction)
-{
-    //Richting instellen
-    if(direction == 0){
-      digitalWrite(MOTOR_IN1, HIGH);
-      }
-      else if(direction == 1){
-        digitalWrite(MOTOR_IN2, LOW);
-      }
 }
