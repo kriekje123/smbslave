@@ -4,9 +4,8 @@
 #include <Arduino.h>
 
 #define MOTOR_EN 5
-#define MOTOR_IN1 6
-#define MOTOR_IN2 7
-#define MOTOR_PWM_PIN 8
+#define MOTOR_PHASE 6
+#define MOTOR_PWM_PIN 7
 
 static void setMotorPWM(uint8_t pwm)
 {
@@ -17,18 +16,17 @@ static void setMotorDirection(uint8_t direction)
 {
     //Richting instellen
     if(direction == 0){
-        digitalWrite(MOTOR_IN1, HIGH);
+        digitalWrite(MOTOR_PHASE, HIGH);
     }
     else if(direction == 1){
-        digitalWrite(MOTOR_IN2, LOW);
+        digitalWrite(MOTOR_PHASE, LOW);
     }
 }
 
 void motorInit()
 {
   pinMode(MOTOR_EN, OUTPUT);
-  pinMode(MOTOR_IN1, OUTPUT);
-  pinMode(MOTOR_IN2, OUTPUT);
+  pinMode(MOTOR_PHASE, OUTPUT);
   pinMode(MOTOR_PWM_PIN, OUTPUT);
 
     smb.writeByteRegister(REG_SPEED, 0);
