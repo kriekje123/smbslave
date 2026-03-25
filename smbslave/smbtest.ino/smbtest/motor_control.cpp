@@ -4,12 +4,18 @@
 
 void motorInit()
 {
-    //hardware initialiseren
+    smb.writeByteRegister(REG_SPEED, 0);
+    smb.writeByteRegister(REG_DIRECTION, 0);
+    smb.writeWordRegister(REG_RPM_L, 0);
+
+    setMotorPWM(0);
+    setMotorDirection(0);
 }
 
 void motorUpdate()
 {
-    //waardes uitlezen
+    uint8_t speed = smb.readByteRegister(REG_SPEED);
+    uint8_t direction = smb.readByteRegister(REG_DIRECTION);
 
     setMotorDirection(direction);
     setMotorPWM(speed);
