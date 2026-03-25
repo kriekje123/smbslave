@@ -9,13 +9,9 @@
 
 void motorInit()
 {
-  pinMode(MOTOR_EN, OUTPUT);
-  pinMode(MOTOR_IN1, OUTPUT);
-  pinMode(MOTOR_IN2, OUTPUT);
-
-  smb.writeByteRegister(REG_SPEED, 0);
-  smb.writeByteRegister(REG_DIRECTION, 0);
-  smb.writeWordRegister(REG_RPM_L, 0);
+    smb.writeByteRegister(REG_SPEED, 0);
+    smb.writeByteRegister(REG_DIRECTION, 0);
+    smb.writeWordRegister(REG_RPM_L, 0);
 
   setMotorPWM(0);
   setMotorDirection(0);
