@@ -1,5 +1,26 @@
-//
-// Created by loict on 18/03/2026.
-//
+#include "motor_control.h"
+#include "motor_registers.h"
+#include "smb.h"
 
-const int driverpin = 5;
+void motorInit()
+{
+    //hardware initialiseren
+}
+
+void motorUpdate()
+{
+    //waardes uitlezen
+
+    setMotorDirection(direction);
+    setMotorPWM(speed);
+}
+
+void setMotorPWM(uint8_t pwm)
+{
+    //Snelheid initialiseren
+}
+
+void setMotorDirection(uint8_t direction)
+{
+    //Richting instellen
+}
