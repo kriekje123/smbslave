@@ -8,4 +8,7 @@
 #define REG_RPM_H     4
 
 
+
+
+
 #endif //SMBSLAVE_MOTOR_REGISTERS_H

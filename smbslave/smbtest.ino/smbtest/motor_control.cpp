@@ -1,15 +1,24 @@
 #include "motor_control.h"
 #include "motor_registers.h"
 #include "smb.h"
+#include <Arduino.h>
+
+#define MOTOR_EN 5
+#define MOTOR_IN1 6
+#define MOTOR_IN2 7
 
 void motorInit()
 {
-    smb.writeByteRegister(REG_SPEED, 0);
-    smb.writeByteRegister(REG_DIRECTION, 0);
-    smb.writeWordRegister(REG_RPM_L, 0);
+  pinMode(MOTOR_EN, OUTPUT);
+  pinMode(MOTOR_IN1, OUTPUT);
+  pinMode(MOTOR_IN2, OUTPUT);
 
-    setMotorPWM(0);
-    setMotorDirection(0);
+  smb.writeByteRegister(REG_SPEED, 0);
+  smb.writeByteRegister(REG_DIRECTION, 0);
+  smb.writeWordRegister(REG_RPM_L, 0);
+
+  setMotorPWM(0);
+  setMotorDirection(0);
 }
 
 void motorUpdate()
@@ -29,4 +38,10 @@ void setMotorPWM(uint8_t pwm)
 void setMotorDirection(uint8_t direction)
 {
     //Richting instellen
+    if(direction == 0){
+      digitalWrite(MOTOR_IN1, HIGH);
+      }
+      else if(direction == 1){
+        digitalWrite(MOTOR_IN2, HIGH);
+      }
 }
