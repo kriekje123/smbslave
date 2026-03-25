@@ -9,6 +9,10 @@
 
 void motorInit()
 {
+  pinMode(MOTOR_EN, OUTPUT);
+  pinMode(MOTOR_IN1, OUTPUT);
+  pinMode(MOTOR_IN2, OUTPUT);
+
     smb.writeByteRegister(REG_SPEED, 0);
     smb.writeByteRegister(REG_DIRECTION, 0);
     smb.writeWordRegister(REG_RPM_L, 0);
@@ -38,6 +42,6 @@ void setMotorDirection(uint8_t direction)
       digitalWrite(MOTOR_IN1, HIGH);
       }
       else if(direction == 1){
-        digitalWrite(MOTOR_IN2, HIGH);
+        digitalWrite(MOTOR_IN2, LOW);
       }
 }
