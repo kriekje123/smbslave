@@ -1,4 +1,9 @@
 #include "smb.h"
+#include "motor_control.h"
+
+// IMPORTANT: sensors file
+void sensorsInit();
+void updateSensors();
 
 #define I2C_SLAVE_ADDR 0x22
 
@@ -10,17 +15,12 @@ void setup()
     for (int a=0;a<I2C_NUM_REGISTERS;a++) smb.writeByteRegister(a,a); //Fill register list with non zero values
 }
 
-void loop() 
-{
-    char sbuf[80];
-    Serial.println("Register dump:");
-    for (int a=0;a<I2C_NUM_REGISTERS;a++) 
-    {
-        sprintf(sbuf,"%d:%02xH  ",a,smb.readByteRegister(a));
-        Serial.print(sbuf);
-    }
-    Serial.print("\n");
 
-    delay(500);
+void loop() {
+    motorUpdate();   // read I2C registers → control motor
 
+
+    updateSensors(); // write current + rpm back to registers
+
+    delay(10); // 100 Hz control loop
 }
