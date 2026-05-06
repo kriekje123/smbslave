@@ -1,18 +1,16 @@
 #include "smb.h"
 #include "motor_control.h"
+#include "sensors.h"
 
-// IMPORTANT: sensors file
-void sensorsInit();
-void updateSensors();
-
-#define I2C_SLAVE_ADDR 0x22
+#define I2C_SLAVE_ADDR 0x07
 
 void setup() 
 {
     Serial.begin(115200);
     smb.begin(I2C_SLAVE_ADDR);
 
-    for (int a=0;a<I2C_NUM_REGISTERS;a++) smb.writeByteRegister(a,a); //Fill register list with non zero values
+    motorInit();
+    sensorsInit();
 }
 
 

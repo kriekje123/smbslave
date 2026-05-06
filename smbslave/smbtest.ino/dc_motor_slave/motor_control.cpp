@@ -3,34 +3,40 @@
 #include "smb.h"
 #include <Arduino.h>
 
-#define MOTOR_EN 5
-#define MOTOR_PHASE 6
-#define MOTOR_PWM_PIN 7
+constexpr uint8_t ENABLE_PIN = PD0;
+constexpr uint8_t BRAKE_PIN = PD1;
+constexpr uint8_t MODE_PIN = PD2;
+constexpr uint8_t DIRECTION_PIN = PD3;
 
 static void setMotorPWM(uint8_t pwm)
 {
-    analogWrite(MOTOR_PWM_PIN, pwm);
+    analogWrite(ENABLE_PIN, pwm);
 }
 
 static void setMotorDirection(uint8_t direction)
 {
-    //Richting instellen
+        //Richting instellen
     if(direction == 0){
-        digitalWrite(MOTOR_PHASE, HIGH);
+        digitalWrite(DIRECTION_PIN, HIGH);
     }
     else if(direction == 1){
-        digitalWrite(MOTOR_PHASE, LOW);
+        digitalWrite(DIRECTION_PIN, LOW);
     }
+	else{
+		Serial.println("ERROR: Invalid direction value: ");
+		Serial.println(direction);
+		Serial.println("\nOnly 0 or 1 are valid direction values. (0 = forward, 1 = reverse)");
+	}
 }
 
 void motorInit()
 {
-  pinMode(MOTOR_EN, OUTPUT);
-  pinMode(MOTOR_PHASE, OUTPUT);
-  pinMode(MOTOR_PWM_PIN, OUTPUT);
+  pinMode(DIRECTION_PIN, OUTPUT);
+  pinMode(ENABLE_PIN, OUTPUT);
 
     smb.writeByteRegister(REG_SPEED, 0);
     smb.writeByteRegister(REG_DIRECTION, 0);
+    smb.writeByteRegister(REG_CURRENT, 0);
     smb.writeWordRegister(REG_RPM_L, 0);
 
   setMotorPWM(0);
