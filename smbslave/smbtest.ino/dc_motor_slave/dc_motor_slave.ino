@@ -2,11 +2,10 @@
 #include "motor_control.h"
 #include "sensors.h"
 
-#define I2C_SLAVE_ADDR 0x07
+#define I2C_SLAVE_ADDR 0x07 (0b0111)
 
 void setup() 
 {
-    Serial.begin(115200);
     smb.begin(I2C_SLAVE_ADDR);
 
     motorInit();
